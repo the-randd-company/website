@@ -46,7 +46,7 @@ const Apps = () => {
           marginBottom: '3rem'
         }}>
           <img 
-            src={Doggo}
+            src={-Doggo}
             alt="Doggo Client Logo"
             style={{
               width: isMobile ? '200px' : '240px',
