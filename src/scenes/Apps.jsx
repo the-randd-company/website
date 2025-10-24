@@ -46,8 +46,7 @@ const Apps = () => {
           marginBottom: '3rem'
         }}>
           <img 
-            src={-Doggo}
-            alt="Doggo Client Logo"
+            alt="SFTP Client Logo"
             style={{
               width: isMobile ? '200px' : '240px',
               height: isMobile ? '200px' : '240px',
