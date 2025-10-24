@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import signature from '../assets/Signature.png'
 
 const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const sceneNames = ['Home', 'About', 'Apps', 'Contact']
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <nav style={{
@@ -13,15 +22,15 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '2rem 3rem',
+      padding: isMobile ? '1.5rem 1.5rem' : '2rem 3rem',
       zIndex: 1000,
       mixBlendMode: 'difference'
     }}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        fontSize: '1.5rem',
+        gap: isMobile ? '0.5rem' : '1rem',
+        fontSize: isMobile ? '1.2rem' : '1.5rem',
         fontWeight: '700',
         color: 'white',
         letterSpacing: '0.15em',
@@ -43,7 +52,7 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '2.5rem' }}>
+      <div style={{ display: 'flex', gap: isMobile ? '0.8rem' : '2.5rem' }}>
         {sceneNames.map((name, index) => (
           <button
             key={index}
@@ -53,7 +62,7 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
               border: 'none',
               color: currentScene === index ? '#fff' : '#666',
               cursor: 'pointer',
-              fontSize: '0.9rem',
+              fontSize: isMobile ? '0.7rem' : '0.9rem',
               fontWeight: currentScene === index ? '600' : '400',
               padding: '0.5rem 0',
               transition: 'all 0.3s',

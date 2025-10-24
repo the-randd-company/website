@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const About = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const sceneStyle = {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '8rem 3rem 3rem 3rem'
+    padding: isMobile ? '6rem 1.5rem 3rem 1.5rem' : '8rem 3rem 3rem 3rem'
   }
 
   const containerStyle = {
@@ -18,7 +28,7 @@ const About = () => {
     <div style={sceneStyle}>
       <div style={containerStyle}>
         <h2 style={{
-          fontSize: '2.5rem',
+          fontSize: isMobile ? '2rem' : '2.5rem',
           fontWeight: '700',
           marginBottom: '2rem',
           letterSpacing: '-0.01em',
@@ -28,7 +38,7 @@ const About = () => {
         </h2>
         <div style={{ maxWidth: '700px' }}>
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: isMobile ? '1rem' : '1.1rem',
             color: '#ccc',
             lineHeight: '1.8',
             marginBottom: '1.5rem'
@@ -38,7 +48,7 @@ const About = () => {
             and building from the early experiments of Roman Rand at age 8 to refined production applications today.
           </p>
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: isMobile ? '1rem' : '1.1rem',
             color: '#ccc',
             lineHeight: '1.8'
           }}>

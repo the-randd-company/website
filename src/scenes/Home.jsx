@@ -37,12 +37,22 @@ const FadingWords = () => {
 }
 
 const Home = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const sceneStyle = {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '8rem 3rem 3rem 3rem'
+    padding: isMobile ? '6rem 1.5rem 3rem 1.5rem' : '8rem 3rem 3rem 3rem'
   }
 
   const containerStyle = {
@@ -54,7 +64,7 @@ const Home = () => {
     <div style={sceneStyle}>
       <div style={containerStyle}>
         <h1 style={{
-          fontSize: '4.5rem',
+          fontSize: isMobile ? '2.5rem' : '4.5rem',
           fontWeight: '700',
           marginBottom: '1.5rem',
           lineHeight: '1.1',
@@ -64,7 +74,7 @@ const Home = () => {
           Roman Rand
         </h1>
         <p style={{
-          fontSize: '1.3rem',
+          fontSize: isMobile ? '1.1rem' : '1.3rem',
           color: '#999',
           lineHeight: '1.6',
           maxWidth: '700px'

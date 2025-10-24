@@ -1,14 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const sceneStyle = {
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '8rem 3rem 3rem 3rem'
+    padding: isMobile ? '6rem 1.5rem 3rem 1.5rem' : '8rem 3rem 3rem 3rem'
   }
 
   const containerStyle = {
@@ -24,7 +33,7 @@ const Contact = () => {
     <div style={sceneStyle}>
       <div style={containerStyle}>
         <h2 style={{
-          fontSize: '2.5rem',
+          fontSize: isMobile ? '2rem' : '2.5rem',
           fontWeight: '700',
           marginBottom: '2.5rem',
           letterSpacing: '-0.01em',

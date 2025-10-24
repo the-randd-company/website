@@ -13,7 +13,10 @@ function App() {
 
   useEffect(() => {
     let scrollTimeout
+    let touchStartY = 0
+    let touchEndY = 0
     const threshold = 150
+    const touchThreshold = 50
 
     const handleWheel = (e) => {
       e.preventDefault()
@@ -45,9 +48,45 @@ function App() {
       })
     }
 
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+
+    const handleTouchMove = (e) => {
+      if (isTransitioning) return
+      touchEndY = e.touches[0].clientY
+    }
+
+    const handleTouchEnd = () => {
+      if (isTransitioning) return
+      
+      const diff = touchStartY - touchEndY
+      
+      if (Math.abs(diff) > touchThreshold) {
+        const delta = diff > 0 ? 1 : -1
+        const nextScene = Math.max(0, Math.min(currentScene + delta, totalScenes - 1))
+        
+        if (nextScene !== currentScene) {
+          setIsTransitioning(true)
+          setCurrentScene(nextScene)
+          setTimeout(() => setIsTransitioning(false), 700)
+        }
+      }
+      
+      touchStartY = 0
+      touchEndY = 0
+    }
+
     window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    window.addEventListener('touchend', handleTouchEnd, { passive: true })
+    
     return () => {
       window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleTouchEnd)
       clearTimeout(scrollTimeout)
     }
   }, [currentScene, isTransitioning])
