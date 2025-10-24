@@ -20,17 +20,19 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
       left: 0,
       right: 0,
       display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: isMobile ? '1.5rem 1.5rem' : '2rem 3rem',
+      flexDirection: isMobile ? 'column' : 'row',
+      justifyContent: isMobile ? 'flex-start' : 'space-between',
+      alignItems: isMobile ? 'flex-start' : 'center',
+      padding: isMobile ? '1rem 1.5rem' : '2rem 3rem',
       zIndex: 1000,
-      mixBlendMode: 'difference'
+      mixBlendMode: 'difference',
+      gap: isMobile ? '0.75rem' : '0'
     }}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
         gap: isMobile ? '0.5rem' : '1rem',
-        fontSize: isMobile ? '1.2rem' : '1.5rem',
+        fontSize: isMobile ? '1rem' : '1.5rem',
         fontWeight: '700',
         color: 'white',
         letterSpacing: '0.15em',
@@ -52,7 +54,7 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: isMobile ? '0.8rem' : '2.5rem' }}>
+      <div style={{ display: 'flex', gap: isMobile ? '0.6rem' : '2.5rem' }}>
         {sceneNames.map((name, index) => (
           <button
             key={index}
@@ -62,7 +64,7 @@ const Navbar = ({ currentScene, setCurrentScene, totalScenes }) => {
               border: 'none',
               color: currentScene === index ? '#fff' : '#666',
               cursor: 'pointer',
-              fontSize: isMobile ? '0.7rem' : '0.9rem',
+              fontSize: isMobile ? '0.65rem' : '0.9rem',
               fontWeight: currentScene === index ? '600' : '400',
               padding: '0.5rem 0',
               transition: 'all 0.3s',
