@@ -73,7 +73,7 @@ const Apps = () => {
                 textShadow: '0 0 20px rgba(255,255,255,0.2)',
                 margin: 0
               }}>
-                Doggo 
+                Nectar Client
                 <span style={{
                   fontSize: '0.7rem', 
                   marginLeft: '0.5rem',
